@@ -2,7 +2,7 @@
 
 Pre-validate landing pages, campaigns, and product pages using AI-generated synthetic audiences — before exposing real users.
 
-SAEP shifts experimentation **left** by deploying LLM-driven behavioral models onto target web properties to detect content gaps, layout friction, and intent mismatches *before* live deployment.
+SAEP shifts experimentation **left** by deploying LLM-driven behavioral models onto target web properties to evaluate SEO coverage gaps, detect layout friction, score intent alignment, and surface content mismatches — all *before* live deployment.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/KrishnaKumarTiwari/synthetic-audience-eval)
 
