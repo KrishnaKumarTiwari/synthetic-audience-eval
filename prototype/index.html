@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAEP — Synthetic Audience Evaluation Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="8" fill="url(#brandGrad)" />
+            <path d="M8 14l4 4 8-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="brandGrad" x1="0" y1="0" x2="28" y2="28">
+                <stop stop-color="#7C3AED" />
+                <stop offset="1" stop-color="#A855F7" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="brand-text">SAEP</span>
+        <button class="sidebar-collapse-btn" id="sidebar-collapse" title="Toggle sidebar">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="10,2 4,8 10,14"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="sidebar-section-label">Navigation</div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-view="dashboard">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="7" height="7" rx="1.5"/>
+            <rect x="11" y="2" width="7" height="7" rx="1.5"/>
+            <rect x="2" y="11" width="7" height="7" rx="1.5"/>
+            <rect x="11" y="11" width="7" height="7" rx="1.5"/>
+          </svg>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-item" data-view="personas">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="7" cy="7" r="3"/>
+            <circle cx="14" cy="8" r="2.5"/>
+            <path d="M1 18v-1a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v1"/>
+            <path d="M14 11.5a3.5 3.5 0 0 1 3.5 3.5v3"/>
+          </svg>
+          <span>Personas</span>
+        </button>
+        <button class="nav-item" data-view="simulation">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="8,4 16,10 8,16"/>
+          </svg>
+          <span>Simulation</span>
+        </button>
+        <button class="nav-item" data-view="results">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="2,16 6,8 10,12 14,4 18,10"/>
+            <line x1="2" y1="18" x2="18" y2="18"/>
+          </svg>
+          <span>Results</span>
+        </button>
+        <button class="nav-item" data-view="observability">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10" cy="10" r="7"/>
+            <path d="M10 6v4l2.5 2.5"/>
+            <circle cx="10" cy="10" r="1"/>
+          </svg>
+          <span>Observability</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-section-label">Recent</div>
+      <div class="recent-campaigns" id="recent-campaigns">
+        <!-- Populated by app.js -->
+      </div>
+
+      <div class="sidebar-spacer"></div>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-footer-text">Prototype v0.2</div>
+        <div class="sidebar-shortcuts">
+          <div class="sidebar-shortcut"><span>Dashboard</span><kbd>D</kbd></div>
+          <div class="sidebar-shortcut"><span>Personas</span><kbd>P</kbd></div>
+          <div class="sidebar-shortcut"><span>Simulation</span><kbd>S</kbd></div>
+          <div class="sidebar-shortcut"><span>Results</span><kbd>R</kbd></div>
+          <div class="sidebar-shortcut"><span>Observability</span><kbd>O</kbd></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+      <header class="header">
+        <div class="header-left">
+          <div class="breadcrumb" id="breadcrumb">
+            <span class="breadcrumb-item">SAEP</span>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-item" id="breadcrumb-product">Campaign</span>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-item active" id="breadcrumb-page">Nike Jordan Trunner</span>
+          </div>
+          <div class="header-title">
+            <h1 id="page-title">Campaign Setup</h1>
+            <p id="page-subtitle" class="text-secondary">Configure and launch your synthetic audience evaluation</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <div class="kbd-hint"><kbd>&#8984;K</kbd></div>
+          <div class="notification-wrapper" id="notification-wrapper">
+            <button class="header-icon-btn" id="notification-btn" title="Notifications">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13.5 6.75a4.5 4.5 0 1 0-9 0c0 5.25-2.25 6.75-2.25 6.75h13.5s-2.25-1.5-2.25-6.75"/>
+                <path d="M10.3 15a1.5 1.5 0 0 1-2.6 0"/>
+              </svg>
+              <span class="badge" id="notification-badge">3</span>
+            </button>
+          </div>
+          <div class="avatar" title="User">JD</div>
+          <div class="status-badge">
+            <span class="status-dot"></span>
+            Demo Mode
+          </div>
+        </div>
+      </header>
+
+      <div id="content" class="content">
+        <!-- Views rendered here by app.js -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
