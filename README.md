@@ -22,6 +22,10 @@ https://github.com/user-attachments/assets/REPLACE_WITH_VIDEO_ID
 
 ![SAEP Architecture](./diagrams/saep_architecture.png)
 
+### High-Level Design
+
+![HLD](./diagrams/hld.png)
+
 The platform uses an **Agentic Architecture** with specialized, autonomous LLM agents that collaborate to execute the simulation lifecycle:
 
 | Agent | Role |
