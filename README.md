@@ -58,9 +58,9 @@ Full design details: [SAEP_HLD.md](./SAEP_HLD.md)
 ### Product Scraping (Multi-Strategy)
 | Strategy | When Used |
 |---|---|
-| **`__NEXT_DATA__` (Nike-optimized)** | Nike.com and other Next.js sites — extracts structured product JSON |
+| **`__NEXT_DATA__`** | Next.js e-commerce sites — extracts structured product JSON from SSR payload |
 | **JSON-LD (`application/ld+json`)** | Most e-commerce sites — parses `schema.org/Product` structured data |
-| **Generic `__NEXT_DATA__`** | Non-Nike Next.js sites — walks `pageProps` tree for product-like objects |
+| **Generic `__NEXT_DATA__`** | Other Next.js sites — walks `pageProps` tree for product-like objects |
 | **Open Graph meta tags** | Final fallback — extracts `og:title`, `og:image`, `product:price:amount` |
 
 ### Deployment
@@ -89,7 +89,7 @@ Full design details: [SAEP_HLD.md](./SAEP_HLD.md)
 
 - **Campaign Setup** — Enter any product URL, select audience segment, set budget cap, launch simulation
 - **Live Product Scraping** — Auto-fetches product metadata (image, title, price, availability) via proxy
-- **Synthetic Persona Library** — 100 AI-generated personas across 3 segments (Sneakerheads, Fitness Enthusiasts, Casual Lifestyle) with filtering and search
+- **Synthetic Persona Library** — 100 AI-generated personas across 3 audience segments with filtering and search
 - **Simulation Pipeline** — 5-stage animated pipeline (Persona Gen → Query Synthesis → SERP Sim → Agent Browsing → Evaluation)
 - **Results Dashboard** — KPIs (score, bounce rate, intent alignment, conversion proxy), SEO coverage, friction analysis, persona breakdown
 - **Observability** — LLM call log, token usage, cost breakdown, cache performance, latency metrics
@@ -159,7 +159,7 @@ npx vercel
 ## How It Works
 
 1. **Enter a product URL** on the Dashboard — the app scrapes product metadata via the `/api/fetch` proxy
-2. **Configure audience** — select a segment (Sneakerheads / Fitness / Casual) and persona count (100–1000)
+2. **Configure audience** — select a target segment and persona count (100–1000)
 3. **Set budget cap** — estimated cost calculated at $0.48/persona
 4. **Run Simulation** — the pipeline executes 5 stages with real-time progress, stats, and activity log
 5. **View Results** — overall score, SEO query coverage, friction points with recommendations, persona segment breakdown
