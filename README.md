@@ -12,13 +12,38 @@ SAEP shifts experimentation **left** by deploying LLM-driven behavioral models o
 
 ## Demo
 
-https://github.com/user-attachments/assets/REPLACE_WITH_VIDEO_ID
+### 1. Campaign Setup
+Configure target URL, audience segment, persona count, and budget — product metadata is scraped automatically.
 
-> **To add:** Record a walkthrough with a screen recorder (e.g. OBS, QuickTime, or Loom), upload it to the GitHub release or drag-drop into a GitHub issue/PR, then paste the resulting URL above.
+![Dashboard](./diagrams/demo/dashboard.png)
+
+### 2. Synthetic Personas
+Browse 100 AI-generated personas across 3 audience segments. Filter by segment, search by traits, location, or behavior.
+
+![Personas](./diagrams/demo/personas.png)
+
+### 3. Simulation Pipeline
+5-stage pipeline runs with real-time progress bars, activity log, and live stats (elapsed time, active agents, completed journeys).
+
+![Simulation](./diagrams/demo/simulation.png)
+
+### 4. Evaluation Results
+KPIs, AI-generated insights, SEO query coverage, friction points with recommendations, and per-segment persona breakdown.
+
+![Results](./diagrams/demo/results.png)
+
+### 5. Observability
+Full LLM telemetry — call log by pipeline stage, token usage, model breakdown, cost tracking, and cache performance.
+
+![Observability](./diagrams/demo/observability.png)
 
 ---
 
 ## Architecture
+
+The platform uses an **Agentic Architecture** with specialized, autonomous LLM agents that collaborate to execute the simulation lifecycle.
+
+### System Overview
 
 ![SAEP Architecture](./diagrams/saep_architecture.png)
 
@@ -26,21 +51,29 @@ https://github.com/user-attachments/assets/REPLACE_WITH_VIDEO_ID
 
 ![HLD](./diagrams/hld.png)
 
-The platform uses an **Agentic Architecture** with specialized, autonomous LLM agents that collaborate to execute the simulation lifecycle:
+### Agent Roles
 
-| Agent | Role |
-|---|---|
-| **Orchestrator** | Central coordinator — decomposes goals, delegates, synthesizes reports |
-| **Persona Generation** | Generates/retrieves high-fidelity synthetic user profiles via Vector DB |
-| **Intent & Query Engine** | Produces realistic search queries and intent distributions per persona |
-| **SERP Simulator** | Simulates search engine ranking to evaluate query-to-page mapping |
-| **Manager** | Fleet management — decides agent count, tier assignment, monitors completion |
-| **Worker Agent Pool** | Stateless browser agents that execute actual page browsing (Tier 1–3) |
-| **SEO Evaluator** | Computes intent-content cosine similarity, identifies coverage gaps |
-| **UX Friction Evaluator** | Uses Decision Perplexity as a proxy for human frustration |
-| **Calibration** | Continuously tunes predictions against real analytics (target: Pearson r > 0.85) |
+| Agent | Role | Pipeline Stage |
+|---|---|---|
+| [**Orchestrator**](./SAEP_HLD.md#31-agentic-architecture-overview) | Central coordinator — decomposes goals, delegates, synthesizes reports | All |
+| [**Persona Generation**](./SAEP_HLD.md#33-core-agentic-subsystems) | Generates/retrieves high-fidelity synthetic user profiles via Vector DB | Persona Gen |
+| [**Intent & Query Engine**](./SAEP_HLD.md#33-core-agentic-subsystems) | Produces realistic search queries and intent distributions per persona | Query Synthesis |
+| [**SERP Simulator**](./SAEP_HLD.md#33-core-agentic-subsystems) | Simulates search engine ranking to evaluate query-to-page mapping | SERP Sim |
+| [**Manager**](./SAEP_HLD.md#33-core-agentic-subsystems) | Fleet management — decides agent count, tier assignment, monitors completion | Agent Browsing |
+| [**Worker Agent Pool**](./SAEP_HLD.md#33-core-agentic-subsystems) | Stateless browser agents that execute actual page browsing (Tier 1–3) | Agent Browsing |
+| [**SEO Evaluator**](./SAEP_HLD.md#33-core-agentic-subsystems) | Computes intent-content cosine similarity, identifies coverage gaps | Evaluation |
+| [**UX Friction Evaluator**](./SAEP_HLD.md#33-core-agentic-subsystems) | Uses Decision Perplexity as a proxy for human frustration | Evaluation |
+| [**Calibration**](./SAEP_HLD.md#34-key-design-details) | Continuously tunes predictions against real analytics (target: Pearson r > 0.85) | Background |
 
-Full design details: [SAEP_HLD.md](./SAEP_HLD.md)
+### Key Design Concepts
+
+- [**Intent Drifting Model**](./SAEP_HLD.md#34-key-design-details) — Markov chain modeling intent transitions (Informational → Transactional) based on page content
+- [**Calibration Loop**](./SAEP_HLD.md#34-key-design-details) — Compares SAEP predictions vs. real analytics to fine-tune scoring weights
+- [**DOM Cache**](./SAEP_HLD.md#33-core-agentic-subsystems) — Content-addressable cache that skips LLM calls for previously evaluated page states
+- [**Cost Control**](./SAEP_HLD.md#34-key-design-details) — Budget caps, persona reuse, tiered routing, batch scheduling
+- [**Agent Guardrails**](./SAEP_HLD.md#34-key-design-details) — Max steps, cycle detection, token budget gates, wall-clock timeouts
+
+Full design document: [SAEP_HLD.md](./SAEP_HLD.md)
 
 ---
 
@@ -111,7 +144,14 @@ Full design details: [SAEP_HLD.md](./SAEP_HLD.md)
 synthetic-audience-eval/
 ├── SAEP_HLD.md                  # High-Level Design document
 ├── diagrams/
-│   └── saep_architecture.png    # Architecture diagram
+│   ├── saep_architecture.png    # Architecture diagram
+│   ├── hld.png                  # High-level design diagram
+│   └── demo/                    # App screenshots
+│       ├── dashboard.png
+│       ├── personas.png
+│       ├── simulation.png
+│       ├── results.png
+│       └── observability.png
 └── prototype/
     ├── index.html               # HTML shell — sidebar, header, content area
     ├── app.js                   # Main SPA — routing, views, simulation pipeline
